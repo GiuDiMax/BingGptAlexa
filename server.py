@@ -9,6 +9,7 @@ from cryptography.fernet import Fernet
 import os
 cookies = None
 import time
+import gunicorn
 
 fernet = Fernet(os.environ["KEY"])
 with open('cookies.json', 'rb') as enc_file:
