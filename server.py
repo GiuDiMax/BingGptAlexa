@@ -11,6 +11,7 @@ cookies = None
 import time
 import gunicorn
 import asgiref
+import re
 
 fernet = Fernet(os.environ["KEY"])
 with open('cookies.json', 'rb') as enc_file:
@@ -61,7 +62,9 @@ async def ask_stream_task(question, codes):
                 sys.stdout.flush()
             else:
                 response_list.clear()
-                response_list.append(response["item"]["messages"][-1]["text"])
+                resx = response["item"]["messages"][-1]["text"]
+                resx = re.sub("\[\^[[0-9]+\^\]", "", resx).replace("  ", " ").replace(" .", ".").replace(" ,", ",")
+                response_list.append(resx)
                 responses_final_list[str(codes)] = response["item"]["messages"][-1]["text"]
                 finished = True
                 print("Finished: " + str(codes))
