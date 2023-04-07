@@ -10,6 +10,7 @@ import os
 cookies = None
 import time
 import gunicorn
+import asgiref
 
 fernet = Fernet(os.environ["KEY"])
 with open('cookies.json', 'rb') as enc_file:
